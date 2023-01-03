@@ -89,7 +89,7 @@ class NewsController extends Controller
     public function update(NewsStoreRequest $request, News $news)
     {
 
-        $newImage = null;
+        $newImage = $news->image;
         if ($image = $request->file('image')) {
             $destinationPath = 'images/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
