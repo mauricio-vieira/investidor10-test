@@ -40,4 +40,14 @@ class News extends Model
             get: fn ($value) => Carbon::parse($value)->format('d/m/Y H:i:s'),
         );
     }
+
+    /**
+     * Foreign key definition.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo(Categories::class);
+    }
 }
