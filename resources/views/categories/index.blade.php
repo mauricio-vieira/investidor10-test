@@ -7,7 +7,7 @@
         </div>
 
         <div class="card-body">
-            <a href="{{ route('news.create') }}" class="btn btn-primary" role="button">Cadastrar categoria</a>
+            <a href="{{ route('categories.create') }}" class="btn btn-primary" role="button">Cadastrar categoria</a>
 
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">

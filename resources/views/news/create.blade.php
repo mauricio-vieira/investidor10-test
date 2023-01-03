@@ -29,6 +29,14 @@
                     <textarea class="form-control" id="newsContent" rows="3" name="content"></textarea>
                 </div>
                 <div class="mb-3">
+                    <select class="form-select" name="category_id">
+                        <option>Selecione uma categoria para a notícia</option>
+                        @foreach ($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
                     <div class="form-group">
                         <strong>Imagem:</strong>
                         <input type="file" name="image" class="form-control" placeholder="Imagem da notícia">

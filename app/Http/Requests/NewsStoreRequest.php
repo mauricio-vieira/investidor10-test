@@ -27,6 +27,7 @@ class NewsStoreRequest extends FormRequest
             'title' => 'required',
             'content' => 'required',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category_id' => 'exists:App\Models\Categories,id'
         ];
     }
 }

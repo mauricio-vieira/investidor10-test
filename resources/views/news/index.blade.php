@@ -19,6 +19,7 @@
                 <thead>
                 <tr>
                     <th scope="col">Título</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Criado em</th>
                     <th scope="col">Ações</th>
                 </tr>
@@ -27,6 +28,7 @@
                 @foreach($news as $item)
                     <tr>
                         <td>{{ $item->title }}</td>
+                        <td>{{ $item->category->name ?? '[Sem categoria]' }}</td>
                         <td>{{ $item->created_at }}</td>
                         <td>
                             <form action="{{ route('news.destroy', $item->id) }}" method="POST">

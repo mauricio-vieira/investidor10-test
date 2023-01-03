@@ -13,16 +13,23 @@ class SiteController extends Controller
      */
     public function index(Request $request)
     {
-        $news = News::where([
-            ['title', '!=', Null],
-            [function ($query) use ($request) {
-                if (($s = $request->s)) {
-                    $query->orWhere('title', 'LIKE', '%' . $s . '%')
-                        ->orWhere('content', 'LIKE', '%' . $s . '%')
-                        ->get();
-                }
-            }]
-        ])->paginate(10);
+        $news = News::join('categories', 'categories.id', '=', 'news.category_id')
+            ->select('news.*', 'categories.name AS category')
+            ->where(
+                [
+                    ['title', '!=', null],
+                    [function ($query) use ($request) {
+                        if (($s = $request->s)) {
+                            $query
+                                ->orWhere('title', 'LIKE', '%' . $s . '%')
+                                ->orWhere('content', 'LIKE', '%' . $s . '%')
+                                ->get();
+                        }
+                    }]
+                ]
+            )
+            ->orWhere('categories.name', 'LIKE', '%' . $request->s . '%')
+            ->paginate(10);
 
         if ($news->total() === 0) {
             if ($request->s) {
@@ -30,6 +37,10 @@ class SiteController extends Controller
             }
 
             return view('site.nocontent');
+        }
+
+        if ($request->s) {
+            $view_data['search'] = $request->s;
         }
 
         $view_data['news'] = $news;

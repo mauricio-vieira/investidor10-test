@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewsStoreRequest;
 use App\Models\News;
+use App\Models\Categories;
 
 class NewsController extends Controller
 {
@@ -14,7 +15,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::paginate(10);
+        $news = News::with('category')->latest()->paginate(10);
 
         if ($news->total() === 0) {
             return view('news.nocontent');
@@ -31,7 +32,9 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('news.create');
+        $categories = Categories::all();
+
+        return view('news.create', compact('categories'));
     }
 
     /**
@@ -55,6 +58,7 @@ class NewsController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'image' => $newImage,
+            'category_id' => $request->category_id,
         ];
         News::create($data);
 
@@ -70,7 +74,9 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        return view('news.edit', compact('news'));
+        $categories = Categories::all();
+
+        return view('news.edit', compact('categories', 'news'));
     }
 
     /**
@@ -96,6 +102,7 @@ class NewsController extends Controller
             'title' => $request->title,
             'content' => $request->content,
             'image' => $newImage,
+            'category_id' => $request->category_id,
         ];
 
         $news->update($data);
