@@ -28,7 +28,16 @@ class SiteController extends Controller
                     }]
                 ]
             )
-            ->orWhere('categories.name', 'LIKE', '%' . $request->s . '%')
+            ->orWhere(
+                function ($query) use ($request) {
+                    if (($s = $request->s)) {
+                        $query
+                            ->join('categories', 'categories.id', '=', 'news.category_id')
+                            ->orWhere('categories.name', 'LIKE', '%' . $s . '%')
+                            ->get();
+                    }
+                }
+            )
             ->paginate(10);
 
         if ($news->total() === 0) {
