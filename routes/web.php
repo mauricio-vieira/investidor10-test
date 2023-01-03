@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\CategoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware('auth')->group(function () {
     Route::resource('/news', NewsController::class);
+    Route::resource('/categories', CategoriesController::class);
 
     Route::get('users', [\App\Http\Controllers\UserController::class, 'index'])->name('users.index');
 

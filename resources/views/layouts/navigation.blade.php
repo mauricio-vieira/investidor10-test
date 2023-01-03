@@ -17,4 +17,13 @@
             {{ __('Notícias') }}
         </a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('categories.index') }}">
+            <svg class="nav-icon">
+                <use xlink:href="{{ asset('icons/coreui.svg#cil-file') }}"></use>
+            </svg>
+            {{ __('Categorias') }}
+        </a>
+    </li>
 </ul>

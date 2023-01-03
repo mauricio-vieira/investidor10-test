@@ -3,11 +3,11 @@
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
-            {{ __('Notícias') }}
+            {{ __('Categorias') }}
         </div>
 
         <div class="card-body">
-            <a href="{{ route('news.create') }}" class="btn btn-primary" role="button">Cadastrar notícia</a>
+            <a href="{{ route('news.create') }}" class="btn btn-primary" role="button">Cadastrar categoria</a>
 
             @if ($message = Session::get('success'))
                 <div class="alert alert-success">
@@ -18,19 +18,19 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">Título</th>
+                    <th scope="col">Nome</th>
                     <th scope="col">Criado em</th>
                     <th scope="col">Ações</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($news as $item)
+                @foreach($categories as $category)
                     <tr>
-                        <td>{{ $item->title }}</td>
-                        <td>{{ $item->created_at }}</td>
+                        <td>{{ $category->name }}</td>
+                        <td>{{ $category->created_at }}</td>
                         <td>
-                            <form action="{{ route('news.destroy', $item->id) }}" method="POST">
-                                <a href="{{ route('news.edit', $item->id) }}" class="btn btn-primary" role="button">Atualizar</a>
+                            <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
+                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-primary" role="button">Atualizar</a>
 
                                 @csrf
                                 @method('DELETE')
@@ -45,7 +45,7 @@
         </div>
 
         <div class="card-footer">
-            {{ $news->links() }}
+            {{ $categories->links() }}
         </div>
     </div>
 @endsection
