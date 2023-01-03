@@ -23,6 +23,7 @@
                             @endif
                             <div class="card-body">
                                 <h4 class="card-title">{{ $item->title }}</h4>
+                                <h6 class="card-title">{{ $item->category ?? '' }}</h6>
                                 <p class="card-text">{{ Str::limit($item->content, 20) }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
